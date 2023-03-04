@@ -108,7 +108,7 @@ pipeline {
                 encodedPassword = URLEncoder.encode("$password",'UTF-8')
                 echo 'In Pr'
 
-                sh"
+                sh"""
                 curl -L \
                   -X POST \
                   -H "Accept: application/vnd.github+json" \
@@ -126,7 +126,7 @@ pipeline {
                   "title": "Updated Solar System Image"
                 }''
             
-            "
+            """
                   }
             // sh "bash pr.sh"
         }
