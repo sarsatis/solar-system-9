@@ -29,6 +29,7 @@ pipeline {
         script{
             container(name: 'kaniko',shell:'/busybox/sh'){
               // sh "cp ${WORKSPACE}/Dockerfile ."
+              sh "ls ${WORKSPACE}"
               kaniko.buildImage dockerfile: 'Dockerfile',
               image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
               // sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
