@@ -5,6 +5,8 @@ metadata:
     jenkins: jenkins-pipeline
 spec:
   serviceAccountName: myjenkins
+  securityContext:
+    runAsUser: 0
   containers:
     - name: jnlp
       image: jenkins/jnlp-agent-maven
