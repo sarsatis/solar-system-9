@@ -30,7 +30,9 @@ pipeline {
             container(name: 'kaniko',shell:'/busybox/sh'){
               // sh "cp ${WORKSPACE}/Dockerfile ."
               sh "ls"
-              sh "ls ${WORKSPACE}"
+              // sh'''
+              // /kaniko/executor --dockerfile Dockerfile --destination=${IMAGE_REPO}/${NAME}:${VERSION}
+              // '''
               kaniko.buildImage dockerfile: 'Dockerfile',
               image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
               // sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
