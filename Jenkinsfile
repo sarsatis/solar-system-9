@@ -78,10 +78,9 @@ pipeline {
       steps {
         script {
           dir("gitops-argocd/jenkins-demo") {
-            withCredentials([usernamePassword(credentialsId: 'githubcredentials',
+            withCredentials([usernamePassword(credentialsId: 'githubpat',
                   usernameVariable: 'username',
                   passwordVariable: 'password')]){
-            def encodedPassword = URLEncoder.encode("$password",'UTF-8')
             echo 'pass ${encodedPassword}'
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git config --global user.name 'sarsatis'"
@@ -91,7 +90,8 @@ pipeline {
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
             
-                  sh 'git push https://${username}:${password}@github.com/${username}/gitops-argocd.git origin feature-branch'
+                  // sh 'git push https://${username}:${password}@github.com/${username}/gitops-argocd.git origin feature-branch'
+                  sh 'git push origin feature-branch'
             }
             echo 'push complete'
           }
