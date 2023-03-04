@@ -5,7 +5,7 @@ pipeline {
     NAME = "solar-system"
     VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
     IMAGE_REPO = "sarthaksatish"
-    ARGOCD_TOKEN = credentials('argocd-token')
+    // ARGOCD_TOKEN = credentials('argocd-token')
     GITHUB_TOKEN = credentials('githubpat')
   }
   
