@@ -12,7 +12,7 @@ curl -X 'POST' \
   ],
   "base": "main",
   "body": "Updated deployment specification with a new image version.",
-  "head": "feature-gitea",
+  "head": "feature-branch",
   "title": "Updated Solar System Image"
 }'
 

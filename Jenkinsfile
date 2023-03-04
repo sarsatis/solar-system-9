@@ -79,10 +79,10 @@ pipeline {
         dir("gitops-argocd/jenkins-demo") {
           sh "git config --global user.email 'jenkins@ci.com'"
           sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd'
-          sh 'git checkout feature-gitea'
+          sh 'git checkout feature-branch'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
-          sh 'git push origin feature-gitea'
+          sh 'git push origin feature-branch'
         }
       }
     }
