@@ -28,9 +28,9 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.9.0-debug
       workingDir: /apps/kubedata/jenkins-agent/
-      volumeMounts:
-        - mountPath: "apps/kubedata/jenkins-agent"
-          name: sharedvolume
+      # volumeMounts:
+      #   - mountPath: "apps/kubedata/jenkins-agent"
+      #     name: sharedvolume
       command:
         - /busybox/cat
       tty: true
