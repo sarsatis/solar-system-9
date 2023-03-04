@@ -15,6 +15,9 @@ echo "Opening a Pull Request"
 #   "head": "feature-test",
 #   "title": "Updated Solar System Image"
 # }'
+
+echo "sa ${GITHUB_TOKEN}"
+
 curl -L \
   -X POST \
   -H "Accept: application/vnd.github+json" \
