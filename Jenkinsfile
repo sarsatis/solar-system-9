@@ -76,22 +76,24 @@ pipeline {
 
     stage('Commit & Push') {
       steps {
-        dir("gitops-argocd/jenkins-demo") {
-          withCredentials([usernamePassword(credentialsId: 'githubpat',
-                 usernameVariable: 'username',
-                 passwordVariable: 'password')]){
-          def encodedPassword = URLEncoder.encode("$password",'UTF-8')
-          sh "git config --global user.email 'jenkins@ci.com'"
-          sh "git config --global user.name 'sarsatis'"
-          sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
-          sh 'git checkout feature-branch'
-          sh 'git add -A'
-          sh 'git commit -am "Updated image version for Build - $VERSION"'
-          echo 'push started'
-          
-                 sh 'git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git origin feature-branch'
+        script {
+          dir("gitops-argocd/jenkins-demo") {
+            withCredentials([usernamePassword(credentialsId: 'githubpat',
+                  usernameVariable: 'username',
+                  passwordVariable: 'password')]){
+            def encodedPassword = URLEncoder.encode("$password",'UTF-8')
+            sh "git config --global user.email 'jenkins@ci.com'"
+            sh "git config --global user.name 'sarsatis'"
+            sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
+            sh 'git checkout feature-branch'
+            sh 'git add -A'
+            sh 'git commit -am "Updated image version for Build - $VERSION"'
+            echo 'push started'
+            
+                  sh 'git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git origin feature-branch'
+            }
+            echo 'push complete'
           }
-          echo 'push complete'
         }
       }
     }
