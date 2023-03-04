@@ -85,7 +85,7 @@ pipeline {
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git"
             sh 'git checkout -b feature-test'
-            sh 'git pull'
+            sh 'git pull origin feature-test'
             sh 'sed -i "s#sarthaksatish.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
             sh 'cat deployment.yaml'
             sh 'git add -A'
