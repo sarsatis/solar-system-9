@@ -81,6 +81,7 @@ pipeline {
                  usernameVariable: 'username',
                  passwordVariable: 'password')]){
           sh "git config --global user.email 'jenkins@ci.com'"
+          sh "git config --global user.name 'sarsatis'"
           sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd'
           sh 'git checkout feature-branch'
           sh 'git add -A'
