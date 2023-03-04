@@ -82,6 +82,7 @@ pipeline {
                   usernameVariable: 'username',
                   passwordVariable: 'password')]){
             def encodedPassword = URLEncoder.encode("$password",'UTF-8')
+            echo 'pass ${encodedPassword}'
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git config --global user.name 'sarsatis'"
             sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
