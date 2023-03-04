@@ -4,6 +4,9 @@ metadata:
   labels:
     jenkins: jenkins-pipeline
 spec:
+  volumes:
+    - name: dind-storage
+      emptyDir: {}
   serviceAccountName: myjenkins
   securityContext:
     runAsUser: 0
