@@ -34,7 +34,7 @@ pipeline {
                 withEnv(['PATH+EXTRA=/busybox']) {
                   sh'''#!/busybox/sh
                   cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json
-                  /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+                  /kaniko/executor --force --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
                   '''
                 }
               }
