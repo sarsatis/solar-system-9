@@ -81,17 +81,19 @@ pipeline {
             withCredentials([usernamePassword(credentialsId: 'githubpat',
                   usernameVariable: 'username',
                   passwordVariable: 'password')]){
+            encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
             echo 'pass ${encodedPassword}'
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git config --global user.name 'sarsatis'"
-            sh 'git remote set-url origin git@github.com:sarsatis/gitops-argocd.git'
+            sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
+            sh 'git remote -v'
             sh 'git checkout feature-branch'
             sh 'git add -A'
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
             
-                  // sh 'git push https://${username}:${password}@github.com/${username}/gitops-argocd.git origin feature-branch'
-                  sh 'git push origin feature-branch'
+                  sh 'git push https://${username}:${encodedPasswords}@github.com/${username}/gitops-argocd.git origin feature-branch'
+                  // sh 'git push origin feature-branch'
             }
             echo 'push complete'
           }
