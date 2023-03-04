@@ -112,7 +112,7 @@ pipeline {
                 curl -L \
                   -X POST \
                   -H "Accept: application/vnd.github+json" \
-                  -H 'Authorization: Bearer "${encodedPassword}"'\
+                  -H "Authorization: Bearer ${encodedPassword}"\
                   -H "X-GitHub-Api-Version: 2022-11-28" \
                   'https://api.github.com/repos/sarsatis/gitops-argocd/pulls' \
                   -d '{
@@ -124,7 +124,7 @@ pipeline {
                   "body": "Updated deployment specification with a new image version.",
                   "head": "feature-test",
                   "title": "Updated Solar System Image"
-                }''
+                }'
             
             """
                   }
