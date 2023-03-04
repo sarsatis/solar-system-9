@@ -12,7 +12,7 @@ spec:
     runAsUser: 0
   containers:
     - name: jnlp
-      image: jnlp
+      image: mirantis/jnlp-slave
       resources:
         requests:
           memory: "128Mi"
