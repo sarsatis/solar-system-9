@@ -9,12 +9,18 @@ spec:
     - name: jnlp
       image: jenkins/jnlp-agent-maven
       resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
         limits:
           memory: "128Mi"
           cpu: "500m"
     - name: docker
       image: docker
       resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
         limits:
           memory: "128Mi"
           cpu: "500m"
