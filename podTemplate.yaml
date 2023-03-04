@@ -30,7 +30,7 @@ spec:
     #       memory: "1000Mi"
     #       cpu: "500m"
     - name: kaniko
-      image: gcr.io/kaniko-project/executor:v1.9.0-debug
+      image: gcr.io/kaniko-project/executor:51734fc3a33e04f113487853d118608ba6ff2b81
       workingDir: /apps/kubedata/jenkins-agent/
       volumeMounts:
         - name: jenkins-docker-cfg
