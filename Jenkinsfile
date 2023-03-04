@@ -46,14 +46,6 @@ pipeline {
         }
       }
 
-    // stage('Push Image') {
-    //   steps {
-    //     withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-    //       sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
-    //     }
-    //   }
-    // }
-
     stage('Clone/Pull Repo') {
       steps {
         script {
@@ -67,7 +59,7 @@ pipeline {
 
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git checkout -b feature-gitea https://github.com/sarsatis/gitops-argocd'
+            sh 'git clone -b feature-branch https://github.com/sarsatis/gitops-argocd'
           }
         }
       }
