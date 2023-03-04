@@ -77,16 +77,16 @@ pipeline {
     stage('Commit & Push') {
       steps {
         dir("gitops-argocd/jenkins-demo") {
+          withCredentials([usernamePassword(credentialsId: 'githubpat',
+                 usernameVariable: 'username',
+                 passwordVariable: 'password')]){
           sh "git config --global user.email 'jenkins@ci.com'"
           sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd'
           sh 'git checkout feature-branch'
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
           echo 'push started'
-          withCredentials([usernamePassword(credentialsId: 'githubpat',
-                 usernameVariable: 'username',
-                 passwordVariable: 'password')]){
-                 sh 'some script ${username} ${password}'
+          
                  sh 'git push origin feature-branch'
           }
           echo 'push complete'
