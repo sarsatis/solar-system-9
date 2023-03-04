@@ -83,7 +83,7 @@ pipeline {
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
           echo 'push started'
-          withCredentials([usernamePassword(credentials: 'githubpat',
+          withCredentials([usernamePassword(credentialsId: 'githubpat',
                  usernameVariable: 'username',
                  passwordVariable: 'password')]){
                  sh 'some script ${username} ${password}'
