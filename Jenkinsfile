@@ -31,9 +31,11 @@ pipeline {
               // sh "cp ${WORKSPACE}/Dockerfile ."
               sh "ls"
               withCredentials([file(credentialsId: 'docker-credentials', variable: 'DOCKER_CONFIG_JSON')]) {
-                sh'''#!/busybox/sh
-                /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination=${IMAGE_REPO}/${NAME}:${VERSION}
-                '''
+                withEnv(['PATH+EXTRA=/busybox']) {
+                  sh'''#!/busybox/sh
+                  /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination=${IMAGE_REPO}/${NAME}:${VERSION}
+                  '''
+                }
               }
               // kaniko.buildImage dockerfile: 'Dockerfile',
               // image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
