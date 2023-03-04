@@ -12,7 +12,7 @@ spec:
     runAsUser: 0
   containers:
     - name: jnlp
-      image: jenkins/jnlp-agent-maven
+      image: jnlp
       resources:
         requests:
           memory: "128Mi"
