@@ -83,9 +83,10 @@ pipeline {
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
           echo 'push started'
-          withCredentials([usernamePassword(credentialsId: 'githubpat',
+          withCredentials([usernamePassword(credentials: 'githubpat',
                  usernameVariable: 'username',
                  passwordVariable: 'password')]){
+                 sh 'some script ${username} ${password}'
                  sh 'git push origin feature-branch'
           }
           echo 'push complete'
