@@ -1,5 +1,12 @@
+def podTemplate = "podTemplate.yaml"
+
 pipeline {
-  agent any
+  agent {
+    kubernetes{
+      label "jenkins-${UUID.randomUUID().toString()}"
+      yamlFile "$podTemplate"
+    }
+  }
 
   environment {
     NAME = "solar-system"
@@ -19,8 +26,12 @@ pipeline {
 
     stage('Build Image') {
       steps {
-            sh "docker build -t ${NAME} ."
-            sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
+        script{
+            container('docker'){
+              sh "docker build -t ${NAME} ."
+              sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
+            }
+          }
         }
       }
 
