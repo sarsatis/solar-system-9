@@ -65,16 +65,13 @@ pipeline {
       }
     }
     
-    stage('Update Manifest') {
-      steps {
-        dir("gitops-argocd/jenkins-demo") {
-          sh 'git checkout -b feature-test'
-          sh 'git pull'
-          sh 'sed -i "s#sarthaksatish.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
-          sh 'cat deployment.yaml'
-        }
-      }
-    }
+    // stage('Update Manifest') {
+    //   steps {
+    //     dir("gitops-argocd/jenkins-demo") {
+         
+    //     }
+    //   }
+    // }
 
     stage('Commit & Push') {
       steps {
@@ -87,6 +84,10 @@ pipeline {
             echo "sa ${encodedPassword}"
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git"
+            sh 'git checkout -b feature-test'
+            sh 'git pull'
+            sh 'sed -i "s#sarthaksatish.*#${IMAGE_REPO}/${NAME}:${VERSION}#g" deployment.yaml'
+            sh 'cat deployment.yaml'
             sh 'git add -A'
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
