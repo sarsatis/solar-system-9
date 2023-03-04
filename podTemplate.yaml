@@ -32,6 +32,7 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug-v0.19.0
       workingDir: /apps/kubedata/jenkins-agent/
+      imagePullPolicy: Always
       volumeMounts:
         - name: jenkins-docker-cfg
           mountPath: /kaniko/.docker

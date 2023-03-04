@@ -33,7 +33,8 @@ pipeline {
               withCredentials([file(credentialsId: 'docker-credentials', variable: 'DOCKER_CONFIG_JSON')]) {
                 withEnv(['PATH+EXTRA=/busybox']) {
                   sh'''#!/busybox/sh
-                  /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination=${IMAGE_REPO}/${NAME}:${VERSION}
+                  cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json
+                  /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
                   '''
                 }
               }
