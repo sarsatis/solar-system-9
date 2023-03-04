@@ -78,7 +78,7 @@ pipeline {
       steps {
         script {
           dir("gitops-argocd/jenkins-demo") {
-            withCredentials([usernamePassword(credentialsId: 'githubpat',
+            withCredentials([usernamePassword(credentialsId: 'githubcredentials',
                   usernameVariable: 'username',
                   passwordVariable: 'password')]){
             def encodedPassword = URLEncoder.encode("$password",'UTF-8')
