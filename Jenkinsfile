@@ -84,7 +84,7 @@ pipeline {
             echo 'pass ${encodedPassword}'
             sh "git config --global user.email 'jenkins@ci.com'"
             sh "git config --global user.name 'sarsatis'"
-            sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
+            sh 'git remote set-url origin git@github.com:sarsatis/gitops-argocd.git'
             sh 'git checkout feature-branch'
             sh 'git add -A'
             sh 'git commit -am "Updated image version for Build - $VERSION"'
