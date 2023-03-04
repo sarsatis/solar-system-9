@@ -6,6 +6,12 @@ metadata:
 spec:
   serviceAccountName: myjenkins
   containers:
+    - name: jnlp
+      image: jenkins/jnlp-agent-maven
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
     - name: docker
       image: docker
       resources:
