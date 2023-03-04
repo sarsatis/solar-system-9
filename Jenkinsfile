@@ -23,7 +23,7 @@ pipeline {
         echo 'This stage is a sample placeholder'
       }
     }
-
+    
     // stage('Build Image') {
     //   steps {
     //     script{
