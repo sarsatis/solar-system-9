@@ -89,9 +89,7 @@ pipeline {
             sh 'git add -A'
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
-            
             sh "git push -u origin feature-test"
-                  // sh 'git push origin feature-branch'
             }
             echo 'push complete'
           }
