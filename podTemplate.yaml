@@ -18,9 +18,10 @@ spec:
           memory: "1000Mi"
           cpu: "500m"
     - name: docker
-      image: docker:dind
+      image: jpetazzo/dind
       securityContext:
         runAsUser: 0
+        privileged: true
         allowPrivilegeEscalation: true
       resources:
         requests:
@@ -29,3 +30,6 @@ spec:
         limits:
           memory: "128Mi"
           cpu: "500m"
+      volumeMounts:
+        - mountPath: /var/lib/docker
+          name: dind-storage
