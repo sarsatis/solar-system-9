@@ -101,20 +101,35 @@ pipeline {
 
     stage('Raise PR') {
       steps {
-        echo 'In Pr'
+         script {
+            withCredentials([usernamePassword(credentialsId: 'githubpat',
+                  usernameVariable: 'username',
+                  passwordVariable: 'password')]){
+                encodedPassword = URLEncoder.encode("$password",'UTF-8')
+                echo 'In Pr'
 
-      //  sh "gh api \
-      //       --method POST \
-      //       -H 'Accept: application/vnd.github+json' \
-      //       -H 'X-GitHub-Api-Version: 2022-11-28' \
-      //       /repos/sarsatis/gitops-argocd/pulls \
-      //     -f title='Updated Solar System Image' \
-      //     -f body='Updated deployment specification with a new image version.' \
-      //     -f head='feature-test' \
-      //     -f base='master' \
-      //     -f assignee='sarsatis' "
-  
-        sh "bash pr.sh"
+                sh'''
+                curl -L \
+                  -X POST \
+                  -H "Accept: application/vnd.github+json" \
+                  -H "Authorization: Bearer ${encodedPassword}"\
+                  -H "X-GitHub-Api-Version: 2022-11-28" \
+                  'https://api.github.com/repos/sarsatis/gitops-argocd/pulls' \
+                  -d '{
+                  "assignee": "sarsatis",
+                  "assignees": [
+                    "sarsatis"
+                  ],
+                  "base": "main",
+                  "body": "Updated deployment specification with a new image version.",
+                  "head": "feature-test",
+                  "title": "Updated Solar System Image"
+                }'
+            
+            '''
+                  }
+            // sh "bash pr.sh"
+        }
       }
     } 
   }
