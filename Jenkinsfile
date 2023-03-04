@@ -59,7 +59,8 @@ pipeline {
 
           } else {
             echo 'Repo does not exists - Cloning the repo'
-            sh 'git clone -b feature-branch https://github.com/sarsatis/gitops-argocd'
+            sh 'git clone https://github.com/sarsatis/gitops-argocd'
+            sh 'git checkout -b feature-test'
           }
         }
       }
@@ -87,12 +88,12 @@ pipeline {
             sh "git config --global user.name 'sarsatis'"
             sh 'git remote set-url origin https://github.com/sarsatis/gitops-argocd.git'
             sh 'git remote -v'
-            sh 'git checkout feature-branch'
+            
             sh 'git add -A'
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
             
-                  sh "git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git origin feature-branch"
+                  sh "git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git"
                   // sh 'git push origin feature-branch'
             }
             echo 'push complete'
