@@ -30,8 +30,8 @@ pipeline {
             container(name: 'kaniko',shell:'/busybox/sh'){
               // sh "cp ${WORKSPACE}/Dockerfile ."
               sh "ls"
-              sh'''
-              /kaniko/executor --dockerfile Dockerfile --destination=${IMAGE_REPO}/${NAME}:${VERSION}
+              sh'''#!/busybox/sh
+              /kaniko/executor --dockerfile Dockerfile --context `pwd` --destination=${IMAGE_REPO}/${NAME}:${VERSION}
               '''
               // kaniko.buildImage dockerfile: 'Dockerfile',
               // image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
@@ -41,13 +41,13 @@ pipeline {
         }
       }
 
-    stage('Push Image') {
-      steps {
-        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-          sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
-        }
-      }
-    }
+    // stage('Push Image') {
+    //   steps {
+    //     withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+    //       sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
+    //     }
+    //   }
+    // }
 
     stage('Clone/Pull Repo') {
       steps {

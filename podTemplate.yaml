@@ -7,6 +7,14 @@ spec:
   volumes:
     - name: sharedvolume
       emptyDir: {}
+    - name: jenkins-docker-cfg
+      projected:
+        sources:
+        - secret:
+            name: docker-credentials
+            items:
+              - key: .dockerconfigjson
+                path: config.json
   serviceAccountName: myjenkins
   securityContext:
     runAsUser: 0
@@ -28,9 +36,9 @@ spec:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.9.0-debug
       workingDir: /apps/kubedata/jenkins-agent/
-      # volumeMounts:
-      #   - mountPath: "apps/kubedata/jenkins-agent"
-      #     name: sharedvolume
+      volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
       command:
         - /busybox/cat
       tty: true
