@@ -108,7 +108,7 @@ pipeline {
             -H 'Accept: application/vnd.github+json' \
             -H 'X-GitHub-Api-Version: 2022-11-28' \
             /repos/sarsatis/gitops-argocd/pulls \
-            -f title=Updated Solar System Image' \
+          -f title='Updated Solar System Image' \
           -f body='Updated deployment specification with a new image version.' \
           -f head='feature-test' \
           -f base='master' \
