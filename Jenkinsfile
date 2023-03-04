@@ -24,27 +24,27 @@ pipeline {
       }
     }
 
-    stage('Build Image') {
-      steps {
-        script{
-            container(name: 'kaniko',shell:'/busybox/sh'){
-              // sh "cp ${WORKSPACE}/Dockerfile ."
-              sh "ls"
-              withCredentials([file(credentialsId: 'docker-credentials', variable: 'DOCKER_CONFIG_JSON')]) {
-                withEnv(['PATH+EXTRA=/busybox']) {
-                  sh'''#!/busybox/sh
-                  cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json
-                  /kaniko/executor --force --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
-                  '''
-                }
-              }
-              // kaniko.buildImage dockerfile: 'Dockerfile',
-              // image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
-              // sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
-            }
-          }
-        }
-      }
+    // stage('Build Image') {
+    //   steps {
+    //     script{
+    //         container(name: 'kaniko',shell:'/busybox/sh'){
+    //           // sh "cp ${WORKSPACE}/Dockerfile ."
+    //           sh "ls"
+    //           withCredentials([file(credentialsId: 'docker-credentials', variable: 'DOCKER_CONFIG_JSON')]) {
+    //             withEnv(['PATH+EXTRA=/busybox']) {
+    //               sh'''#!/busybox/sh
+    //               cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json
+    //               /kaniko/executor --force --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+    //               '''
+    //             }
+    //           }
+    //           // kaniko.buildImage dockerfile: 'Dockerfile',
+    //           // image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
+    //           // sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"    
+    //         }
+    //       }
+    //     }
+    //   }
 
     stage('Clone/Pull Repo') {
       steps {
@@ -83,12 +83,14 @@ pipeline {
           sh 'git add -A'
           sh 'git commit -am "Updated image version for Build - $VERSION"'
           sh 'git push origin feature-branch'
+          echo 'push complete'
         }
       }
     }
 
     stage('Raise PR') {
       steps {
+        echo 'In Pr'
         sh "bash pr.sh"
       }
     } 
