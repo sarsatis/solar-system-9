@@ -93,7 +93,7 @@ pipeline {
             sh 'git commit -am "Updated image version for Build - $VERSION"'
             echo 'push started'
             
-                  sh "git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git -u feature-test"
+                  sh "git push https://${username}:${encodedPassword}@github.com/${username}/gitops-argocd.git -u origin feature-test"
                   // sh 'git push origin feature-branch'
             }
             echo 'push complete'
