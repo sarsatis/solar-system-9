@@ -55,12 +55,12 @@ pipeline {
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
-                            sh "git checkout -b feature-${env.BUILD_ID}"
+                            sh "git checkout -b ${NAME}-${env.BUILD_ID}"
                             sh 'cat values-dev.yaml'
                             sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
                             echo 'push started'
-                            sh "git push origin feature-${env.BUILD_ID}"
+                            sh "git push origin ${NAME}-${env.BUILD_ID}"
                         }
                         echo 'push complete'
                     }
@@ -89,7 +89,7 @@ pipeline {
                       ],
                       "base": "main",
                       "body": "Updated deployment specification with a new image version.",
-                      "head": "feature-${env.BUILD_ID}",
+                      "head": "${NAME}-${env.BUILD_ID}",
                       "title": "Updated Solar System Image",
                       "labels": [ 
                         {
