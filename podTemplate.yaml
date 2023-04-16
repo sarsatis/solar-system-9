@@ -6,12 +6,12 @@ metadata:
     jenkins: jenkins-pipeline
 spec:
   volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: dockercred
-      items:
-      - key: .dockerconfigjson
-        path: config.json
+    - name: kaniko-secret
+      secret:
+        secretName: dockercred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
   serviceAccountName: jenkins
   securityContext:
     runAsUser: 0
@@ -24,8 +24,22 @@ spec:
         - "1000"
       tty: true
       volumeMounts:
-        - mountPath: /kaniko/.docker 
+        - mountPath: /kaniko/.docker
           name: kaniko-secret
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
+        limits:
+          memory: "1000Mi"
+          cpu: "500m"
+    - name: python
+      image: python:latest
+      imagePullPolicy: Always
+      command:
+        - sleep
+        - "1000"
+      tty: true
       resources:
         requests:
           memory: "128Mi"

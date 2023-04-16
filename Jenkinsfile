@@ -75,8 +75,9 @@ pipeline {
                       passwordVariable: 'password')]){
                     encodedPassword = URLEncoder.encode("$password",'UTF-8')
                     echo 'In Pr'
+                    container(name: 'python') {
                     sh "python3 createprandaddlabels.py"
-                    
+                    }
                       }
                 // sh "bash pr.sh"
             }
