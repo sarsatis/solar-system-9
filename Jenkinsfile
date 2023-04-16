@@ -81,7 +81,7 @@ pipeline {
                       -H "Accept: application/vnd.github+json" \
                       -H "Authorization: Bearer ${encodedPassword}"\
                       -H "X-GitHub-Api-Version: 2022-11-28" \
-                      'https://api.github.com/repos/sarsatis/gitops-argocd/pulls' \
+                      'https://api.github.com/repos/sarsatis/helm-charts/pulls' \
                       -d '{
                       "assignee": "sarsatis",
                       "assignees": [
@@ -90,8 +90,7 @@ pipeline {
                       "base": "main",
                       "body": "Updated deployment specification with a new image version.",
                       "head": "${NAME}-${env.BUILD_ID}",
-                      "title": "Updated Solar System Image",
-                      "labels":["solar-system"]'
+                      "title": "Updated Solar System Image"
                     }'
                 """
                       }
