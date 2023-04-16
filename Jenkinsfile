@@ -76,6 +76,7 @@ pipeline {
                     encodedPassword = URLEncoder.encode("$password",'UTF-8')
                     echo 'In Pr'
                     container(name: 'python') {
+                    sh "pip3 install -r requirements.txt"
                     sh "python3 createprandaddlabels.py"
                     }
                       }
