@@ -77,7 +77,7 @@ pipeline {
                     encodedPassword = URLEncoder.encode("$password",'UTF-8')
                     echo 'In Pr'
                     sh"""
-                    ${result} = $(curl -L \
+                    result = $(curl -L \
                       -X POST \
                       -H "Accept: application/vnd.github+json" \
                       -H "Authorization: Bearer ${encodedPassword}"\
