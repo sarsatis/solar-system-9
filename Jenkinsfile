@@ -21,22 +21,22 @@ pipeline {
                 echo 'This stage is a sample placeholder'
             }
         }
-        stage('Build Image') {
-            steps {
-                script {
-                    container(name: 'kaniko') {
-                        sh """
-                  printenv
-                  /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
-                """
-                    }
-                }
-            }
-        }
+        // stage('Build Image') {
+        //     steps {
+        //         script {
+        //             container(name: 'kaniko') {
+        //                 sh """
+        //           printenv
+        //           /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+        //         """
+        //             }
+        //         }
+        //     }
+        // }
         stage('Clone/Pull Repo') {
             steps {
                 script {
-                    sh "git clone -b feature-${env.BUILD_ID} https://github.com/sarsatis/helm-charts"
+                    sh "git clone https://github.com/sarsatis/helm-charts"
                     sh 'ls -ltr'
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
-                            sh "git checkout feature-${env.BUILD_ID}"
+                            sh "git checkout -b feature-${env.BUILD_ID}"
                             sh 'cat values-dev.yaml'
                             sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
