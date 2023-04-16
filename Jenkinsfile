@@ -55,7 +55,7 @@ pipeline {
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
-                            sh "git checkout feature-${env.BUILD_ID}"
+                            sh "git checkout -b feature-${env.BUILD_ID}"
                             sh 'cat values-dev.yaml'
                             sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
