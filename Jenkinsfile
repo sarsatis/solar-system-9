@@ -41,31 +41,31 @@ pipeline {
                 }
             }
         }
-        stage('Commit & Push') {
-            steps {
-                script {
-                    dir("helm-charts/manifests/${NAME}/") {
-                        withCredentials([usernamePassword(
-                            credentialsId: 'githubpat',
-                            usernameVariable: 'username',
-                            passwordVariable: 'password'
-                        )]) {
-                            encodedPassword = URLEncoder.encode("$password", 'UTF-8')
-                            echo "sa ${encodedPassword}"
-                            sh "git config --global user.email 'jenkins@ci.com'"
-                            sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
-                            sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
-                            sh 'cat values-dev.yaml'
-                            sh 'git add values-dev.yaml'
-                            sh 'git commit -am "Updated image version for Build - $VERSION"'
-                            echo 'push started'
-                            sh "git push -u origin main"
-                        }
-                        echo 'push complete'
-                    }
-                }
-            }
-        }
+//         stage('Commit & Push') {
+//             steps {
+//                 script {
+//                     dir("helm-charts/manifests/${NAME}/") {
+//                         withCredentials([usernamePassword(
+//                             credentialsId: 'githubpat',
+//                             usernameVariable: 'username',
+//                             passwordVariable: 'password'
+//                         )]) {
+//                             encodedPassword = URLEncoder.encode("$password", 'UTF-8')
+//                             echo "sa ${encodedPassword}"
+//                             sh "git config --global user.email 'jenkins@ci.com'"
+//                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
+//                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
+//                             sh 'cat values-dev.yaml'
+//                             sh 'git add values-dev.yaml'
+//                             sh 'git commit -am "Updated image version for Build - $VERSION"'
+//                             echo 'push started'
+//                             sh "git push -u origin main"
+//                         }
+//                         echo 'push complete'
+//                     }
+//                 }
+//             }
+//         }
         // stage('Raise PR') {
         //   steps {
         //      script {
