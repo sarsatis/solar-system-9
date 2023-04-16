@@ -4,7 +4,7 @@ import json
 
 headers = {
     'Accept': 'application/vnd.github+json',
-    'Authorization': 'Bearer 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',
+    'Authorization': 'Bearer $GITHUB_TOKEN',
     'X-GitHub-Api-Version': '2022-11-28',
 }
 
@@ -30,7 +30,7 @@ pr_number = pretty_json.get("number")
 
 label_headers = {
     'Accept': 'application/vnd.github+json',
-    'Authorization': 'Bearer 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',
+    'Authorization': 'Bearer $GITHUB_TOKEN',
     'Content-Type': 'application/json',
 }
 
