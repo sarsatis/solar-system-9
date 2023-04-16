@@ -91,8 +91,10 @@ pipeline {
                       "body": "Updated deployment specification with a new image version.",
                       "head": "feature-${env.BUILD_ID}",
                       "title": "Updated Solar System Image"
-                      "labels": [
+                      "labels": [ 
+                        {
                         "solar-system"
+                        }
                       ]
                     }'
                 """
