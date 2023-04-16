@@ -13,7 +13,6 @@ pipeline {
         IMAGE_REPO = "sarthaksatish"
         // ARGOCD_TOKEN = credentials('argocd-token')
         GITHUB_TOKEN = credentials('githubpat')
-        result = ""
     }
     stages {
         stage('Unit Tests') {
@@ -76,32 +75,8 @@ pipeline {
                       passwordVariable: 'password')]){
                     encodedPassword = URLEncoder.encode("$password",'UTF-8')
                     echo 'In Pr'
-                    sh"""
-                    result = $(curl -L \
-                      -X POST \
-                      -H "Accept: application/vnd.github+json" \
-                      -H "Authorization: Bearer ${encodedPassword}"\
-                      -H "X-GitHub-Api-Version: 2022-11-28" \
-                      'https://api.github.com/repos/sarsatis/helm-charts/pulls' \
-                      -d '{
-                      "assignee": "sarsatis",
-                      "assignees": [
-                        "sarsatis"
-                      ],
-                      "base": "main",
-                      "body": "Updated deployment specification with a new image version.",
-                      "head": "${NAME}-${env.BUILD_ID}",
-                      "title": "Updated Solar System Image"
-                    }')
-                    echo ${result} | grep -Po '"number":.*?[^\\]",'
-                    curl --location --request POST 'https://api.github.com/repos/{repo_owner}/{repo_name}/issues/{pr_number}/labels' \
-                    --header 'Accept: application/vnd.github.v3+json' \
-                    --header 'Authorization: Bearer {GITHUB_PAT}' \
-                    --header 'Content-Type: application/json' \
-                    --data-raw '{
-                        "labels": ["enhancement"]
-                    }'
-                """
+                    sh "python3 createprandaddlabels.py"
+                    
                       }
                 // sh "bash pr.sh"
             }
