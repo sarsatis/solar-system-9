@@ -36,7 +36,7 @@ pipeline {
         stage('Clone/Pull Repo') {
             steps {
                 script {
-                    sh 'git clone https://github.com/sarsatis/helm-charts'
+                    sh "git clone -b feature-${env.BUILD_ID} https://github.com/sarsatis/helm-charts"
                     sh 'ls -ltr'
                 }
             }
@@ -55,12 +55,12 @@ pipeline {
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
-                            sh "git checkout -b feature-${env.BUILD_ID}"
+                            sh "git checkout feature-${env.BUILD_ID}"
                             sh 'cat values-dev.yaml'
                             sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
                             echo 'push started'
-                            sh "git push -u feature-${env.BUILD_ID}"
+                            sh "git push origin feature-${env.BUILD_ID}"
                         }
                         echo 'push complete'
                     }
