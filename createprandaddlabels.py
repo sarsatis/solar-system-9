@@ -24,7 +24,7 @@ data = {
             "title": "Updated Solar System Image"
         }
 
-response = requests.post('https://api.github.com/repos/sarsatis/helm-charts/pulls', headers=headers, data=data)
+response = requests.post('https://api.github.com/repos/sarsatis/helm-charts/pulls', headers=headers, data=json.dumps(data))
 
 pretty_json = json.loads(response.content)
 print (json.dumps(pretty_json, indent=2))
@@ -44,5 +44,5 @@ label_data = {
     }
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')
-response = requests.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels', headers=label_headers, data=label_data)
+response = requests.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels', headers=label_headers, data=json.dumps(label_data))
 print(response)
