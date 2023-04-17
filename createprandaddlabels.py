@@ -1,10 +1,13 @@
 import requests
 import json
+import os
 
+API_TOKEN = os.getenv('PAT_TOKEN')
+authorization = f'token {API_TOKEN}'
 
 headers = {
     'Accept': 'application/vnd.github+json',
-    'Authorization': 'Bearer $GITHUB_TOKEN',
+    'Authorization': authorization,
     'X-GitHub-Api-Version': '2022-11-28',
 }
 
@@ -30,7 +33,7 @@ pr_number = pretty_json.get("number")
 
 label_headers = {
     'Accept': 'application/vnd.github+json',
-    'Authorization': 'Bearer $GITHUB_TOKEN',
+    'Authorization': authorization,
     'Content-Type': 'application/json',
 }
 
