@@ -5,6 +5,7 @@ import os
 API_TOKEN = os.getenv('GITHUB_TOKEN_PSW')
 authorization = f'token {API_TOKEN}'
 
+
 headers = {
     'Accept': 'application/vnd.github+json',
     'Authorization': authorization,
@@ -18,7 +19,7 @@ data = """{
             ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
-            "head": "${NAME}-${env.BUILD_ID}",
+            "head": "${env.NAME}-${env.BUILD_ID}",
             "title": "Updated Solar System Image"
         }"""
 
@@ -38,7 +39,7 @@ label_headers = {
 }
 
 label_data = """{
-     "labels": ["${NAME}"]
+     "labels": ["${env.NAME}"]
     }"""
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')
