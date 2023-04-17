@@ -18,7 +18,7 @@ data = """{
             ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
-            "head": "solar-system-13",
+            "head": "${NAME}-${env.BUILD_ID}",
             "title": "Updated Solar System Image"
         }"""
 
