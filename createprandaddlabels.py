@@ -2,15 +2,12 @@ import requests
 import json
 import os
 
-API_TOKEN = os.getenv('PAT_TOKEN')
-# authorization = f'token {API_TOKEN}'
-
-gh_session = requests.Session()
-gh_session.auth = ("sarsatis", API_TOKEN)
+API_TOKEN = os.getenv('GITHUB_TOKEN_PSW')
+authorization = f'token {API_TOKEN}'
 
 headers = {
     'Accept': 'application/vnd.github+json',
-    # 'Authorization': authorization,
+    'Authorization': authorization,
     'X-GitHub-Api-Version': '2022-11-28',
 }
 
@@ -25,7 +22,7 @@ data = """{
             "title": "Updated Solar System Image"
         }"""
 
-response = gh_session.post('https://api.github.com/repos/sarsatis/helm-charts/pulls', headers=headers, data=data)
+response = requests.post('https://api.github.com/repos/sarsatis/helm-charts/pulls', headers=headers, data=data)
 
 pretty_json = json.loads(response.content)
 print (json.dumps(pretty_json, indent=2))
@@ -36,7 +33,7 @@ pr_number = pretty_json.get("number")
 
 label_headers = {
     'Accept': 'application/vnd.github+json',
-    # 'Authorization': authorization,
+    'Authorization': authorization,
     'Content-Type': 'application/json',
 }
 
@@ -45,5 +42,5 @@ label_data = """{
     }"""
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')
-response = gh_session.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels', headers=label_headers, data=label_data)
+response = requests.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels', headers=label_headers, data=label_data)
 print(response)
