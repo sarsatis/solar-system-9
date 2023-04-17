@@ -15,9 +15,11 @@ headers = {
     'X-GitHub-Api-Version': '2022-11-28',
 }
 
-data = f"""{
+data = """{
             "assignee": "sarsatis",
-            "assignees": "sarsatis",
+            "assignees": [
+            "sarsatis"
+            ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
             "head": "{name}-{build_id}",
