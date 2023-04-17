@@ -7,6 +7,8 @@ authorization = f'token {API_TOKEN}'
 
 name = os.getenv('NAME')
 build_id = os.getenv('BUILD_ID')
+branch_name = name-build_id
+print(branch_name)
 
 
 headers = {
@@ -15,16 +17,16 @@ headers = {
     'X-GitHub-Api-Version': '2022-11-28',
 }
 
-data = """{
+data = {
             "assignee": "sarsatis",
             "assignees": [
             "sarsatis"
             ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
-            "head": f"{name}-{build_id}",
+            "head": branch_name,
             "title": "Updated Solar System Image"
-        }"""
+        }
 
 response = requests.post('https://api.github.com/repos/sarsatis/helm-charts/pulls', headers=headers, data=data)
 
@@ -41,9 +43,9 @@ label_headers = {
     'Content-Type': 'application/json',
 }
 
-label_data = """{
-     "labels": [f"{name}"]
-    }"""
+label_data = {
+     "labels": [name]
+    }
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')
 response = requests.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels', headers=label_headers, data=label_data)
