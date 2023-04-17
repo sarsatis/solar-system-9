@@ -5,8 +5,8 @@ import os
 API_TOKEN = os.getenv('GITHUB_TOKEN_PSW')
 authorization = f'token {API_TOKEN}'
 
-name = os.env('NAME')
-build_id = os.env('BUILD_ID')
+name = os.getenv('NAME')
+build_id = os.getenv('BUILD_ID')
 
 
 headers = {
