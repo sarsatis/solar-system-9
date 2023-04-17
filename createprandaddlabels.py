@@ -18,10 +18,6 @@ headers = {
 }
 
 data = {
-            "assignee": "sarsatis",
-            "assignees": [
-            "sarsatis"
-            ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
             "head": branch_name,
