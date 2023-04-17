@@ -40,7 +40,7 @@ label_headers = {
 }
 
 label_data = {
-     "labels": [name]
+     "labels": [name,"dev"]
     }
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')

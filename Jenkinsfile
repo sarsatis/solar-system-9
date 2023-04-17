@@ -21,18 +21,18 @@ pipeline {
                 echo 'This stage is a sample placeholder'
             }
         }
-        // stage('Build Image') {
-        //     steps {
-        //         script {
-        //             container(name: 'kaniko') {
-        //                 sh """
-        //           printenv
-        //           /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
-        //         """
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build Image') {
+            steps {
+                script {
+                    container(name: 'kaniko') {
+                        sh """
+                  printenv
+                  /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+                """
+                    }
+                }
+            }
+        }
         stage('Clone/Pull Repo') {
             steps {
                 script {
