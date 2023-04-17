@@ -22,7 +22,7 @@ data = """{
             ],
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
-            "head": "{name}-{build_id}",
+            "head": f"{name}-{build_id}",
             "title": "Updated Solar System Image"
         }"""
 
@@ -41,8 +41,8 @@ label_headers = {
     'Content-Type': 'application/json',
 }
 
-label_data = f"""{
-     "labels": ["{name}"]
+label_data = """{
+     "labels": [f"{name}"]
     }"""
 
 print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr_number}/labels')
