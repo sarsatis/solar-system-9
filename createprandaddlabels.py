@@ -17,9 +17,7 @@ headers = {
 
 data = f"""{
             "assignee": "sarsatis",
-            "assignees": [
-            "sarsatis"
-            ],
+            "assignees": "sarsatis",
             "base": "main",
             "body": "Updated deployment specification with a new image version.",
             "head": "{name}-{build_id}",
