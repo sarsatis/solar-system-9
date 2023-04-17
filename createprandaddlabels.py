@@ -7,7 +7,7 @@ authorization = f'token {API_TOKEN}'
 
 name = os.getenv('NAME')
 build_id = os.getenv('BUILD_ID')
-branch_name = name-build_id
+branch_name = f"{name}-{build_id}"
 print(branch_name)
 
 
